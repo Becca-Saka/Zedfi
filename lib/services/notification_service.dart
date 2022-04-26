@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zedfi/services/navigation_services.dart';
 
+///Handles all alerts that are show to the user inside the app
 class NotificationService {
   static GlobalKey<NavigatorState> get navigatorKey =>
       NavigationService.navigatorKey;
@@ -29,6 +30,7 @@ class NotificationService {
     }
   }
 
+///Shows a dialog for user to confirm their phone number is correct before sending code
   static showNumberVerificationDialog(
     String number, {
     bool isInvalid = false,

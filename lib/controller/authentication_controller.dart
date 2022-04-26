@@ -26,6 +26,7 @@ class AuthenticationController extends ChangeNotifier {
     }
   }
 
+//Checks the type of field and changes the keyboardType according to th field in the textfield
   _detectFieldType(String value, BuildContext context, FocusNode node) async {
     if (value.isNotEmpty) {
       final hasDialingCode = value.startsWith('+');

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:zedfi/app/routes/app_routes.dart';
 import 'package:zedfi/services/navigation_services.dart';
@@ -10,9 +8,9 @@ class FirebaseAuthService {
   final String password =
       '1234567'; //Hardcoded password since we are not requestion password from user
 
+///Checks if user has an account then logs them in, if not it creates an account.
   Future<void> handleEmailAuthentication(String email) async {
     try {
-      NotificationService.showSnackBar('error');
       NotificationService.showLoadingDialog('Loading...');
       final signinMethods = await _auth.fetchSignInMethodsForEmail(email);
       User? user;
@@ -32,7 +30,7 @@ class FirebaseAuthService {
       NotificationService.showSnackBar(error);
     }
   }
-
+///Checks if user is verified before redirecting them
   Future<void> _handleEmailUserAuthenticated(User? user) async {
     if (user != null) {
       if (!user.emailVerified) {
@@ -61,6 +59,7 @@ class FirebaseAuthService {
   Future<void> _sendEmailVerification(User user) =>
       user.sendEmailVerification();
 
+///Continously reloads user to see if their account is verified
   Future<void> _listenForEmailVerification() async {
     bool isVerified = false;
     while (!isVerified) {
@@ -110,7 +109,6 @@ class FirebaseAuthService {
       }
     } on FirebaseAuthException catch (e) {
       NavigationService.back();
-      log('${e.code}');
       final messageCode = e.code;
       final error = getErrorMessageFromCode(e.code);
       NotificationService.showSnackBar(error);

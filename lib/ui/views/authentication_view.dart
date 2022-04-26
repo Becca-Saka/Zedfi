@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
@@ -43,7 +41,9 @@ class AuthenticationView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 19),
                   child: Text(
-                    'We’ll send you a confirmation code',
+                    controller.isPhoneNumber
+                        ? 'We’ll need this to verify your identity'
+                        : 'We’ll send you a confirmation code',
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: AppSize.safeblockSizeHorizontal * 4.25,
@@ -57,7 +57,9 @@ class AuthenticationView extends StatelessWidget {
                   obscureText: false,
                   textAlign: TextAlign.start,
                   keyboardType: controller.keyboardType,
-                  labelText: 'Phone number or Email',
+                  labelText: controller.isPhoneNumber
+                      ? 'Phone'
+                      : 'Phone number or Email',
                   onChanged: (value) => controller.onTextChanged(
                     value,
                     context,
@@ -105,38 +107,65 @@ class AuthenticationView extends StatelessWidget {
                 const SizedBox(
                   height: 21,
                 ),
-                RichText(
-                  text: TextSpan(
-                      text: 'By signing up I agree to Zëdfi’s ',
-                      style: TextStyle(
-                        fontSize: AppSize.blockSizeHorizontal * 3.3,
-                        color: Colors.black.withOpacity(0.6),
-                        fontWeight: FontWeight.w400,
-                      ),
-                      children: const [
-                        TextSpan(
-                          text: 'Privacy Policy ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                          ),
+                Visibility(
+                  visible: !controller.isPhoneNumber,
+                  replacement: RichText(
+                    text: TextSpan(
+                        text: 'By signing up I agree to Zëdfi’s ',
+                        style: TextStyle(
+                          fontSize: AppSize.blockSizeHorizontal * 3.3,
+                          color: Colors.black.withOpacity(0.6),
+                          fontWeight: FontWeight.w400,
                         ),
-                        TextSpan(text: ' and '),
-                        TextSpan(
-                          text: 'Terms of Use',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
+                        children: const [
+                          TextSpan(
+                            text: 'Privacy Policy ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
-                        ),
-                        TextSpan(
-                            text:
-                                ' and allow Zedfi to use your information for future '),
-                        TextSpan(
-                          text: 'Marketing purposes.',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
+                          TextSpan(text: ' and '),
+                          TextSpan(
+                            text: 'Terms of Use',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
+                        ]),
+                  ),
+                  child: RichText(
+                    text: TextSpan(
+                        text: 'By signing up I agree to Zëdfi’s ',
+                        style: TextStyle(
+                          fontSize: AppSize.blockSizeHorizontal * 3.4,
+                          color: Colors.black.withOpacity(0.6),
+                          fontWeight: FontWeight.w400,
                         ),
-                      ]),
+                        children: const [
+                          TextSpan(
+                            text: 'Privacy Policy ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          TextSpan(text: ' and '),
+                          TextSpan(
+                            text: 'Terms of Use',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          TextSpan(
+                              text:
+                                  ' and allow Zedfi to use your information for future '),
+                          TextSpan(
+                            text: 'Marketing purposes.',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ]),
+                  ),
                 ),
                 const SizedBox(
                   height: 21,

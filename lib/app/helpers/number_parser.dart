@@ -36,7 +36,6 @@ class NumberParser {
       return parsedNumber;
     } on PlatformException catch (e) {
       log('invalid number ${e.message}');
-      // TODO
     }
     return null;
   }
