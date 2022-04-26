@@ -5,8 +5,6 @@ class NotificationService {
   static GlobalKey<NavigatorState> get navigatorKey =>
       NavigationService.navigatorKey;
 
-  static GlobalKey<ScaffoldMessengerState> get scaffoldKey =>
-      GlobalKey<ScaffoldMessengerState>();
 
   static showLoadingDialog(String message) {
     if (navigatorKey.currentContext != null) {
@@ -33,8 +31,9 @@ class NotificationService {
   }
 
   static showSnackBar(String message) {
-    if (scaffoldKey.currentState != null) {
-      scaffoldKey.currentState!.showSnackBar(SnackBar(
+    if (navigatorKey.currentContext != null) {
+      ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(SnackBar(
+        backgroundColor: Colors.red,
         content: Text(message),
         duration: const Duration(seconds: 2),
       ));

@@ -12,7 +12,6 @@ class FirebaseAuthService {
 
   Future<void> handleEmailAuthentication(String email) async {
     try {
-
       NotificationService.showSnackBar('error');
       NotificationService.showLoadingDialog('Loading...');
       final signinMethods = await _auth.fetchSignInMethodsForEmail(email);
@@ -38,7 +37,8 @@ class FirebaseAuthService {
     if (user != null) {
       if (!user.emailVerified) {
         await _sendEmailVerification(user);
-        NavigationService.navigateTo(AppRoutes.emailVerify, arguments: '${user.email}');
+        NavigationService.navigateTo(AppRoutes.emailVerify,
+            arguments: '${user.email}');
         await _listenForEmailVerification();
       } else {
         NavigationService.navigateTo(AppRoutes.dashBoard);
@@ -81,7 +81,48 @@ class FirebaseAuthService {
     return false;
   }
 
-  handlePhoneVerification() {}
+  Future<void> handlePhoneVerification({
+    required String phoneNumber,
+    required void Function(PhoneAuthCredential) verificationCompleted,
+    required void Function(String, int?) codeSent,
+    required void Function(String) codeAutoRetrievalTimeout,
+  }) {
+    NotificationService.showLoadingDialog('Loading...');
+    return _auth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      verificationCompleted: verificationCompleted,
+      verificationFailed: (FirebaseAuthException exception) {
+        NotificationService.back();
+        final message = getErrorMessageFromCode(exception.message);
+        NotificationService.showSnackBar(message);
+      },
+      codeSent: codeSent,
+      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+    );
+  }
+
+  Future<void> createUserWithCredentials(AuthCredential credential) async {
+    try {
+      NotificationService.showLoadingDialog('Verifying code...');
+      final user = (await _auth.signInWithCredential(credential)).user;
+      if (user != null) {
+        NavigationService.navigateTo(AppRoutes.dashBoard);
+      }
+    } on FirebaseAuthException catch (e) {
+      NavigationService.back();
+      log('${e.code}');
+      final messageCode = e.code;
+      final error = getErrorMessageFromCode(e.code);
+      NotificationService.showSnackBar(error);
+      if (messageCode == 'session-expired') {
+        NavigationService.back();
+      }
+    } catch (e) {
+      NavigationService.back();
+      final error = getErrorMessageFromCode(e.toString());
+      NotificationService.showSnackBar(error);
+    }
+  }
 
   String getErrorMessageFromCode(String? message) {
     switch (message) {
@@ -89,6 +130,12 @@ class FirebaseAuthService {
         return 'Invalid password';
       case 'too-many-requests':
         return 'Too many requests, please wait and try again';
+      case 'session-expired':
+        return 'Session Expired, starting auth process again';
+      case 'invalid-phone-number':
+        return 'Phone number is not correct, please check the number';
+      case 'invalid-verification-code':
+        return 'Pin not correct, try again';
       default:
         return 'Something went Wrong, Please try again';
     }

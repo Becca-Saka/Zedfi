@@ -31,6 +31,7 @@ class _PinCodeFieldsState extends State<PinCodeFields> {
             focusNode: box1,
             height: AppSize.blockSizedVertical * 8,
             width: AppSize.blockSizeHorizontal * 13,
+            keyboardType: TextInputType.number,
             maxLength: 1,
             onChanged: (val) {
               text1 = val;
@@ -45,9 +46,10 @@ class _PinCodeFieldsState extends State<PinCodeFields> {
             focusNode: box2,
             height: AppSize.blockSizedVertical * 8,
             width: AppSize.blockSizeHorizontal * 13,
+            keyboardType: TextInputType.number,
             maxLength: 1,
             onChanged: (val) {
-              text1 = val;
+              text2 = val;
               if (val.isEmpty) {
                 box2.unfocus();
                 FocusScope.of(context).requestFocus(box1);
@@ -61,10 +63,11 @@ class _PinCodeFieldsState extends State<PinCodeFields> {
             focusNode: box3,
             height: AppSize.blockSizedVertical * 8,
             width: AppSize.blockSizeHorizontal * 13,
+            keyboardType: TextInputType.number,
             maxLength: 1,
             onChanged: (val) {
+              text3 = val;
               if (val.isEmpty) {
-                text1 = val;
                 box3.unfocus();
                 FocusScope.of(context).requestFocus(box2);
               } else {
@@ -76,11 +79,12 @@ class _PinCodeFieldsState extends State<PinCodeFields> {
           AppInput(
             height: AppSize.blockSizedVertical * 8,
             width: AppSize.blockSizeHorizontal * 13,
+            keyboardType: TextInputType.number,
             maxLength: 1,
             focusNode: box4,
             onChanged: (val) {
+              text4 = val;
               if (val.isEmpty) {
-                text1 = val;
                 box4.unfocus();
                 FocusScope.of(context).requestFocus(box3);
               } else {
@@ -93,12 +97,13 @@ class _PinCodeFieldsState extends State<PinCodeFields> {
             focusNode: box5,
             height: AppSize.blockSizedVertical * 8,
             width: AppSize.blockSizeHorizontal * 13,
+            keyboardType: TextInputType.number,
             maxLength: 1,
             onChanged: (val) {
+              text5 = val;
               if (val.isEmpty) {
-                text1 = val;
                 box5.unfocus();
-                FocusScope.of(context).requestFocus(box1);
+                FocusScope.of(context).requestFocus(box4);
               } else {
                 box5.unfocus();
                 FocusScope.of(context).requestFocus(box6);
@@ -109,16 +114,18 @@ class _PinCodeFieldsState extends State<PinCodeFields> {
             focusNode: box6,
             height: AppSize.blockSizedVertical * 8,
             width: AppSize.blockSizeHorizontal * 13,
+            keyboardType: TextInputType.number,
             maxLength: 1,
             onChanged: (val) {
+              text6 = val;
               if (val.isEmpty) {
-                text1 = val;
                 box6.unfocus();
-                FocusScope.of(context).requestFocus(box1);
-              }
-              if (_formKey.currentState!.validate()) {
-                final pin = '$text1$text2$text3$text4$text5$text6';
-                widget.onPinSubmitted(pin);
+                FocusScope.of(context).requestFocus(box5);
+              } else {
+                if (_formKey.currentState!.validate()) {
+                  final pin = '$text1$text2$text3$text4$text5$text6';
+                  widget.onPinSubmitted(pin);
+                }
               }
             },
           ),

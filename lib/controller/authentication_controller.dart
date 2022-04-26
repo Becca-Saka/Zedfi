@@ -1,11 +1,17 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:zedfi/app/routes/app_routes.dart';
 import 'package:zedfi/services/firebase_auth_service.dart';
+import 'package:zedfi/services/navigation_services.dart';
+import 'package:zedfi/services/notification_service.dart';
 
 class AuthenticationController extends ChangeNotifier {
   String? fieldInput;
   bool isPhoneNumber = false;
   TextInputType keyboardType = TextInputType.emailAddress;
-
+  String? verificationID, smsCode;
   final FirebaseAuthService _authService = FirebaseAuthService();
 
   void onTextChanged(
@@ -49,13 +55,45 @@ class AuthenticationController extends ChangeNotifier {
     }
   }
 
-  handleVerification() {
+  Future<void> handleVerification() async {
     if (fieldInput != null) {
       if (isPhoneNumber) {
+        await handlePhoneAuth();
       } else {
-        _authService.handleEmailAuthentication(fieldInput!);
+        await _authService.handleEmailAuthentication(fieldInput!);
       }
     }
   }
-  
+
+  Future<void> handlePhoneAuth() {
+    return _authService.handlePhoneVerification(
+        phoneNumber: fieldInput!,
+        verificationCompleted: _createUserWithPhoneCredentials,
+        codeSent: (String code, [int? resendToken]) {
+          verificationID = code;
+    log('code verificationID 1 $code');
+          NavigationService.navigateTo(AppRoutes.phoneVerify);
+        },
+        codeAutoRetrievalTimeout: (String code) {
+          verificationID = code;
+    log('code verificationID 2$code');
+        });
+  }
+
+  Future<void> verifySmsCode(String code) async {
+    log('code $code');
+    AuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: verificationID!,
+      smsCode: code,
+    );
+    await _createUserWithPhoneCredentials(credential);
+  }
+
+  Future<void> _createUserWithPhoneCredentials(AuthCredential credential) =>
+      _authService.createUserWithCredentials(credential);
+
+  Future<void> getSmsCode(String code) {
+    log('code $code');
+    return verifySmsCode(code);
+  }
 }

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:zedfi/app/routes/app_pages.dart';
 import 'package:zedfi/controller/authentication_controller.dart';
 import 'package:zedfi/services/navigation_services.dart';
-import 'package:zedfi/services/notification_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +20,6 @@ class MyApp extends StatelessWidget {
       create: (context) => AuthenticationController(),
       child: MaterialApp(
         navigatorKey: NavigationService.navigatorKey,
-        scaffoldMessengerKey: NotificationService.scaffoldKey,
         title: 'Zedfi',
         theme: ThemeData(
           primarySwatch: Colors.blue,
