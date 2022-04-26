@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:zedfi/ui/widgets/app_colors.dart';
 
-
 ///Create a customizable user input from [TextFormField]
 class AppInput extends StatelessWidget {
   final FocusNode? focusNode;
@@ -15,31 +14,37 @@ class AppInput extends StatelessWidget {
   final TextAlign textAlign;
   final double? height, width;
   final int? maxLength;
+  final TextInputType? keyboardType;
   const AppInput({
     Key? key,
     this.focusNode,
     this.prefix,
     this.prefixIcon,
     this.prefixIconConstraints,
-    
-    this.labelText, this.obscureText = true, this.onChanged, this.textAlign =
-      TextAlign.center, this.height, this.width, this.maxLength,
+    this.labelText,
+    this.obscureText = true,
+    this.onChanged,
+    this.textAlign = TextAlign.center,
+    this.height,
+    this.width,
+    this.maxLength,
+    this.keyboardType,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(2),
-       height: height,
-       width: width,
+      height: height,
+      width: width,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: AppColors.appGrey)),
-      
       child: Center(
         child: TextFormField(
           focusNode: focusNode,
           obscureText: obscureText,
+          keyboardType: keyboardType,
           textAlign: textAlign,
           obscuringCharacter: '•',
           maxLengthEnforcement: MaxLengthEnforcement.enforced,

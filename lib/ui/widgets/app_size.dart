@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Divides devices screen into pixels to enable widget scale accounding to screen size
 class AppSize {
   static late MediaQueryData _mediaQueryData;
   static late double width;

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:zedfi/ui/widgets/app_size.dart';
 import 'package:zedfi/ui/widgets/pin_code_fields.dart';
 
-class VerificationView extends StatelessWidget {
-  VerificationView({Key? key}) : super(key: key);
+class PhoneVerificationView extends StatelessWidget {
+  PhoneVerificationView({Key? key}) : super(key: key);
   final FocusNode focusNode = FocusNode();
 
   @override
