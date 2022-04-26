@@ -4,6 +4,7 @@ import 'package:zedfi/ui/widgets/app_colors.dart';
 
 ///Create a customizable user input from [TextFormField]
 class AppInput extends StatelessWidget {
+  final TextEditingController? controller;
   final FocusNode? focusNode;
   final Widget? prefix;
   final Widget? prefixIcon;
@@ -28,7 +29,7 @@ class AppInput extends StatelessWidget {
     this.height,
     this.width,
     this.maxLength,
-    this.keyboardType,
+    this.keyboardType, this.controller,
   }) : super(key: key);
 
   @override
@@ -43,6 +44,7 @@ class AppInput extends StatelessWidget {
       child: Center(
         child: TextFormField(
           focusNode: focusNode,
+          controller: controller,
           obscureText: obscureText,
           keyboardType: keyboardType,
           textAlign: textAlign,

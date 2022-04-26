@@ -53,6 +53,7 @@ class AuthenticationView extends StatelessWidget {
                 const Spacer(),
                 AppInput(
                   focusNode: focusNode,
+                  controller: controller.inputController,
                   obscureText: false,
                   textAlign: TextAlign.start,
                   keyboardType: controller.keyboardType,
@@ -63,15 +64,15 @@ class AuthenticationView extends StatelessWidget {
                     focusNode,
                   ),
                   prefix: focusNode.hasFocus
-                      ? const Flag.fromString(
-                          'GB',
+                      ? Flag.fromString(
+                          controller.flagValue,
                           height: 12,
                           width: 40,
                         )
                       : null,
                   prefixIcon: !focusNode.hasFocus
-                      ? const Flag.fromString(
-                          'GB',
+                      ? Flag.fromString(
+                          controller.flagValue,
                           height: 12,
                           width: 40,
                         )

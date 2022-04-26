@@ -5,7 +5,6 @@ class NotificationService {
   static GlobalKey<NavigatorState> get navigatorKey =>
       NavigationService.navigatorKey;
 
-
   static showLoadingDialog(String message) {
     if (navigatorKey.currentContext != null) {
       showDialog(
@@ -25,6 +24,58 @@ class NotificationService {
                   ],
                 ),
               ),
+            );
+          });
+    }
+  }
+
+  static showNumberVerificationDialog(
+    String number, {
+    bool isInvalid = false,
+    Function()? sendCode,
+  }) {
+    if (navigatorKey.currentContext != null) {
+      showDialog(
+          context: navigatorKey.currentContext!,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: Colors.white,
+              title: Text(
+                  isInvalid ? 'Invalid Phone number' : 'Confirm Phone number'),
+              content: Text(isInvalid
+                  ? '$number is not a valid number, please chack the number again'
+                  : 'A code will be sent to $number, is this correct'),
+              actions: isInvalid
+                  ? [
+                      const TextButton(
+                        onPressed: back,
+                        child: Text(
+                          'Ok',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ]
+                  : [
+                      const TextButton(
+                        onPressed: back,
+                        child: Text(
+                          'cancel',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          back();
+                          if (sendCode != null) {
+                            sendCode();
+                          }
+                        },
+                        child: const Text(
+                          'Send',
+                          style: TextStyle(color: Colors.green),
+                        ),
+                      ),
+                    ],
             );
           });
     }
