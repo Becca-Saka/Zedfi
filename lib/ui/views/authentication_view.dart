@@ -15,7 +15,7 @@ class AuthenticationView extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 23),
+          padding: const EdgeInsets.symmetric(horizontal: 23).copyWith(top:  10),
           child: Column(
             children: [
               Row(
@@ -44,7 +44,29 @@ class AuthenticationView extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              AppInput(focusNode: focusNode),
+              AppInput(
+                  focusNode: focusNode,
+                  obscureText: false,
+                  textAlign: TextAlign.start,
+          labelText: 'Phone number or Email',
+                  prefix: focusNode.hasFocus
+                      ? const Flag.fromString(
+                          'GB',
+                          height: 12,
+                          width: 40,
+                        )
+                      : null,
+                  prefixIcon: !focusNode.hasFocus
+                      ? const Flag.fromString(
+                          'GB',
+                          height: 12,
+                          width: 40,
+                        )
+                      : null,
+                  prefixIconConstraints: const BoxConstraints(
+                    maxHeight: 12,
+                    maxWidth: 40,
+                  ),),
               const SizedBox(
                 height: 24,
               ),
@@ -53,14 +75,14 @@ class AuthenticationView extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    elevation: 0,
+                      elevation: 0,
                       primary: AppColors.primary,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8))),
                   onPressed: () {},
                   child: const Text(
                     'Continue',
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.w500),
                   ),
                 ),

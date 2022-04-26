@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zedfi/ui/views/authentication_view.dart';
+import 'package:zedfi/ui/views/verification_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Poppins'
       ),
-      home:  AuthenticationView(),
+      home:  VerificationView(),
     );
   }
 }
