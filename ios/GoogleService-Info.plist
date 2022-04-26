@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>874582130379-fp5mjau1els8sh3nm2ncasadj17jql6b.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.874582130379-fp5mjau1els8sh3nm2ncasadj17jql6b</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>874582130379-3c6pg3u9rmmanhnj70pof84cii5d5st4.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDXjLe-Ug95pUzGaf6hbJWQLj-KBBQsF6o</string>
+	<key>GCM_SENDER_ID</key>
+	<string>874582130379</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.zedfi</string>
+	<key>PROJECT_ID</key>
+	<string>zedfi-aca54</string>
+	<key>STORAGE_BUCKET</key>
+	<string>zedfi-aca54.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:874582130379:ios:dcdbb604a157fc83cc654e</string>
+</dict>
+</plist>
